@@ -3,7 +3,7 @@
 int Access(void) {
     int totalScore;
     int scoreOfAI = SituationEvaluate(chessKind);
-    int scoreOfOpponent= SituationEvaluate(3-chessKind);
+    int scoreOfOpponent = SituationEvaluate(3-chessKind);
 
     totalScore = scoreOfAI - scoreOfOpponent;
 
@@ -14,7 +14,6 @@ int Access(void) {
     }
 
 }
-
 
 int SituationEvaluate(int player) {
     char chess1, chess2;
@@ -79,7 +78,6 @@ int RowAndLineAccess(int chess1, int chess2) {
         }
     }
 
-
     for (j = 0; j < BOARD_SIZE; j++) {
         for (i = 0; i < BOARD_SIZE; i++) {
             if (board[i][j] == chess1) {
@@ -127,8 +125,8 @@ int DiagonalAccess(int chess1, int chess2) {
     int x = 21;          //2*15-1-8(前后各四层不可能成五，不进行考虑)=21
     int n = 0;
     int total2 = 0;
-    int leadingdiaScore = 0;
-    int oppositediaScore = 0;
+    int leadingDiaScore = 0;
+    int oppositeDiaScore = 0;
 
     int len[21] = {0,};
     for (i = 0; i < 11; i++) {
@@ -162,13 +160,13 @@ int DiagonalAccess(int chess1, int chess2) {
                 }
                 switch (cnt) {
                     case -1:
-                        oppositediaScore += 0;
+                        oppositeDiaScore += 0;
                         break;
                     case 0 :
-                        oppositediaScore += pow(10, num);
+                        oppositeDiaScore += pow(10, num);
                         break;
                     case 1 :
-                        oppositediaScore += pow(10, num - 1);
+                        oppositeDiaScore += pow(10, num - 1);
                         break;
                     default:
                         break;
@@ -202,13 +200,13 @@ int DiagonalAccess(int chess1, int chess2) {
                 }
                 switch (cnt) {
                     case -1:
-                        oppositediaScore += 0;
+                        oppositeDiaScore += 0;
                         break;
                     case 0 :
-                        oppositediaScore += pow(10, num);
+                        oppositeDiaScore += pow(10, num);
                         break;
                     case 1 :
-                        oppositediaScore += pow(10, num - 1);
+                        oppositeDiaScore += pow(10, num - 1);
                         break;
                     default:
                         break;
@@ -218,12 +216,11 @@ int DiagonalAccess(int chess1, int chess2) {
         k++;
     }
 //主对角线计算同理
-    int cnt = 0, num = 1;
+    int k1=10;
     for (i = 0; i < 11; i++) {
-        k = 10;
-        for (j = 0; j < len[k]; j++) {
+        for (j = 0; j < len[k1]; j++) {
             if (board[j][i + j] == chess1) {
-                num = 1, cnt = 0;
+                int num = 1, cnt = 0;
                 if (j - 1 < 0 || board[j - 1][i + j - 1] == chess2) {
                     cnt = 1;
                 }
@@ -244,25 +241,25 @@ int DiagonalAccess(int chess1, int chess2) {
                 }
                 switch (cnt) {
                     case -1:
-                        leadingdiaScore += 0;
+                        leadingDiaScore += 0;
                         break;
                     case 0 :
-                        leadingdiaScore += pow(10, num);
+                        leadingDiaScore += pow(10, num);
                         break;
                     case 1 :
-                        leadingdiaScore += pow(10, num - 1);
+                        leadingDiaScore += pow(10, num - 1);
                         break;
                     default:
                         break;
                 }
             }
         }
-        k--;
+        k1--;
     }
 
+    int k2=9;
     for (i = 1; i < 11; i++) {
-        k = 9;
-        for (j = i; j < len[k]; j++) {
+        for (j = i; j < len[k2]; j++) {
             if (board[j][j - i] == chess1) {
                 int num = 1, cnt = 0;
                 if (j - 1 < i || board[j - 1][j - 1 - i] == chess2) {
@@ -285,110 +282,44 @@ int DiagonalAccess(int chess1, int chess2) {
                 }
                 switch (cnt) {
                     case -1:
-                        leadingdiaScore += 0;
+                        leadingDiaScore += 0;
                         break;
                     case 0 :
-                        leadingdiaScore += pow(10, num);
+                        leadingDiaScore += pow(10, num);
                         break;
                     case 1 :
-                        leadingdiaScore += pow(10, num - 1);
+                        leadingDiaScore += pow(10, num - 1);
                         break;
                     default:
                         break;
                 }
             }
-            k--;
         }
+        k2--;
     }
-    total2 = leadingdiaScore + oppositediaScore;
+    total2 = leadingDiaScore + oppositeDiaScore;
     return total2;
 }
 
 int EmptyPointEvaluate(Point location) {
-    int score = 0;
-    int x, y, i, j, n;
+    int totalDistance = 0;
+    int x, y, i, j ;
+    int diff_x=0,diff_y=0;
 
     x = location.x;
     y = location.y;
-    for (j = y - 2; j <= y + 2; j++) {
-        int num = 0, cnt = 0;
-        if (j < 0) {
-            j++;
-            continue;
-        }
-        if (board[x][j] == chessKind) {
-            if (j - 1 < 0 || board[x][j - 1] == (3 - chessKind)) {
-                cnt = 1;
+
+    for(i=0;i<BOARD_SIZE;i++){
+        for(j=0;j<BOARD_SIZE;j++){
+            if(board[i][j] != 0){
+                diff_x+=abs(i-x);
+                diff_y+=abs(j-y);
             }
-            for (n = 1; n < 5; n++) {
-                if (board[x][j + n] == chessKind) {
-                    num++;
-                }
-                if (board[x][j + n] == 0) {
-                    j += n;
-                    break;
-                }
-                if (board[x][j + n] == (3 - chessKind) || j + n >= BOARD_SIZE) {
-                    if (cnt == 1) cnt = -1;
-                    if (cnt == 0) cnt = 1;
-                    j += n;
-                    break;
-                }
-            }
-        }
-        switch (cnt) {
-            case -1:
-                score += 0;
-                break;
-            case 0 :
-                score += pow(10, num);
-                break;
-            case 1 :
-                score += pow(10, num - 1);
-                break;
         }
     }
 
-    for (i = x - 2; i <= x + 2; i++) {
-        int num = 0, cnt = 0;
-        if (i < 0) {
-            i++;
-            continue;
-        }
-        if (board[i][y] == chessKind) {
-            if (i - 1 < 0 || board[i - 1][y] == (3 - chessKind)) {
-                cnt = 1;
-            }
-            for (n = 1; n < 5; n++) {
-                if (board[i + n][y] == chessKind) {
-                    num++;
-                }
-                if (board[i + n][y] == 0) {
-                    j += n;
-                    break;
-                }
-                if (board[i + n][y] == (3 - chessKind) || j + n >= BOARD_SIZE) {
-                    if (cnt == 1) cnt = -1;
-                    if (cnt == 0) cnt = 1;
-                    j += n;
-                    break;
-                }
-            }
-        }
-        switch (cnt) {
-            case -1:
-                score += 0;
-                break;
-            case 0 :
-                score += pow(10, num);
-                break;
-            case 1 :
-                score += pow(10, num - 1);
-                break;
-        }
-    }
-
-    return score;
+    totalDistance=diff_x+diff_y;
+    return -totalDistance;
 }
 //
 // Created by 17738 on 2018/6/17.

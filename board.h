@@ -8,7 +8,7 @@
 #include <stdio.h>
 #define BOARD_SIZE 15
 #define INFINITE 2147483647
-#define DEPTH 1
+#define DEPTH 4
 
 typedef struct point{
     int x;
@@ -21,12 +21,12 @@ int chessKind;
 
 
 int main(int argc, char *argv[]);
-void Initboard(void);
+void InitBoard(void);
 int JudgeChessKind(void);
 void Scanf(void);
 void RecordChess(int x,int y);
 void RecordOppentChess(int x,int y);
 void RemoveChess(int x,int y);
-void Putboard(void);
+void PutBoard(void);
 
 #endif //CLIONPROJECT_BOARD_H

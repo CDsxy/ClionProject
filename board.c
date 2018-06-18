@@ -1,6 +1,6 @@
 #include "board.h"
 
-void Initboard(void){
+void InitBoard(void){
     int i,j;
     for(i=0;i<BOARD_SIZE;i++){
         for(j=0;j<BOARD_SIZE;j++){
@@ -51,7 +51,7 @@ void RemoveChess(int x,int y){
     board[x][y]=0;
 }
 
-void Putboard(void){
+void PutBoard(void){
     int i,j;
     for(i=0;i<BOARD_SIZE;i++){
         for(j=0;j<BOARD_SIZE;j++){

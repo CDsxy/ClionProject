@@ -19,16 +19,16 @@ int LegalMoves(Point * point){
         }
     }
 
-    int a=0;
+    int cnt=0;
     for(i=0;i<NEIBOR_NUM;i++){
         if(point[i].x !=0||point[i].y !=0){
-            a++;
+            cnt++;
         }
     }
 
-//	Order(num);
+	Order(point);
 
-    return a;
+    return cnt;
 }
 
 int NeighborJudge(int i,int j){
@@ -46,30 +46,32 @@ int NeighborJudge(int i,int j){
             if(n < 0){
                 n=0;
             }
-            if(n >= BOARD_SIZE){
-                n=BOARD_SIZE-1;
+            if (n >= BOARD_SIZE) {
+                n = BOARD_SIZE - 1;
                 break;
-            }
-            if(board[m][n] != 0){
-                sta=1;
-                break;
+            } else if (board[m][n] != 0) {
+                    sta = 1;
+                    break;
             }
         }
     }
     return sta;
 }
 
-void Order(int num,Point *point){
-    int i,j;
+void Order(Point *point1){
+    int i,j,scoreTemp;
     Point temp;
-    int scoreofPoint[NEIBOR_NUM]={0,};
-    for(i=0;i<num;i++){
-        scoreofPoint[i]=EmptyPointEvaluate(point[i]);
+    int scoreOfPoint[NEIBOR_NUM]={0,};
+    for(i=0;i<NEIBOR_NUM;i++){
+        scoreOfPoint[i]=EmptyPointEvaluate(point1[i]);
         for(j=0;j<i;j++){
-            if(scoreofPoint[i]>scoreofPoint[j]){
-                temp=point[i];
-                point[i]=point[j];
-                point[j]=temp;
+            if(scoreOfPoint[i]>scoreOfPoint[j]){
+                scoreTemp=scoreOfPoint[i];
+                scoreOfPoint[i]=scoreOfPoint[j];
+                scoreOfPoint[j]=scoreTemp;
+                temp=point1[i];
+                point1[i]=point1[j];
+                point1[j]=temp;
             }
         }
     }
@@ -91,18 +93,18 @@ Point Finding(int target){
     int grades[NEIBOR_NUM]={0,};
 
     for(i=0;i<NEIBOR_NUM;i++){
-        if(VaildPoint[i].x!=0  || VaildPoint[i].y!= 0 ){
-            RecordChess(VaildPoint[i].x,VaildPoint[i].y);
+        if(vaildPoint[i].x!=0  || vaildPoint[i].y!= 0 ){
+            RecordChess(vaildPoint[i].x,vaildPoint[i].y);
             grades[i]=Access();
             if(grades[i] == target){
-                return VaildPoint[i];
+                return vaildPoint[i];
             }
-            RemoveChess(VaildPoint[i].x,VaildPoint[i].y);
+            RemoveChess(vaildPoint[i].x,vaildPoint[i].y);
         }
     }
     //best=Best(grades);
 
-//	return VaildPoint[best];
+//	return vaildPoint[best];
 }
 
 

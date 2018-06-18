@@ -14,7 +14,7 @@ int AlphaBeta(int depth, int alpha, int beta) {
     int cnt=0;
     while (cnt<num) {
         MakeNextMove(depth,cnt,legalPoint);
-        Putboard();
+//        PutBoard();
         val = -AlphaBeta(depth-1, -beta, -alpha);
         UnmakeMove(cnt,legalPoint);
         cnt++;
@@ -25,7 +25,7 @@ int AlphaBeta(int depth, int alpha, int beta) {
             alpha = val;
         }
     }
-    //printf("%d",depth+DEPTH);
+
     return alpha;
 }
 

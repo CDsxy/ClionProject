@@ -7,6 +7,7 @@
 
 #include "board.h"
 #include <math.h>
+#include <stdlib.h>
 
 int Access(void);
 int SituationEvaluate(int player);

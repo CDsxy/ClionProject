@@ -6,20 +6,20 @@
 #include "alphabeta.h"
 
 int main(int argc, char **argv) {
-    Initboard();
+    InitBoard();
     board[7][7]=1;
     board[6][7]=2;
     int target;
     chessKind=JudgeChessKind();
     Point nextStep;
     target=AlphaBeta(DEPTH,-INFINITE,INFINITE);
-    LegalMoves(VaildPoint);
+    LegalMoves(vaildPoint);
 //  nextStep=Finding(target);
     printf("%d\n",target);
 /*  RecordChess(nextStep.x,nextStep.y);
     printf("%d %d\n",nextStep.x,nextStep.y);
 */
-    Putboard();
+    PutBoard();
 //	printf("%d %d",nextstep.x,nextstep.y);
 /*	while(1){
 		Scanf();V

@@ -11,11 +11,11 @@
 #include "access.h"
 #define NEIBOR_NUM 80
 
-Point VaildPoint[NEIBOR_NUM];
+Point vaildPoint[NEIBOR_NUM];
 
 int LegalMoves(Point *point);
 int NeighborJudge(int m,int n);
-void Order(int num,Point *point);
+void Order(Point *point1);
 Point Finding(int target);
 
 #endif //CLIONPROJECT_GENERATOR_H
