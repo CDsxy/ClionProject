@@ -5,17 +5,16 @@
 #ifndef CLIONPROJECT_GENERATOR_H
 #define CLIONPROJECT_GENERATOR_H
 
-
-
 #include "board.h"
-#include "access.h"
-#define NEIBOR_NUM 80
+#include "assess.h"
+#include <stdlib.h>
+#include <time.h>
 
-Point vaildPoint[NEIBOR_NUM];
+#define NEIBOR_NUM 80
 
 int LegalMoves(Point *point);
 int NeighborJudge(int m,int n);
 void Order(Point *point1);
-Point Finding(int target);
+Point Finding(int target,const int * ,const Point *);
 
 #endif //CLIONPROJECT_GENERATOR_H

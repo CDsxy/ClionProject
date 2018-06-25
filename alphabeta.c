@@ -7,15 +7,16 @@
 int AlphaBeta(int depth, int alpha, int beta) {
     int val=0;
     Point legalPoint[NEIBOR_NUM];
+    int scoreOfNode[NEIBOR_NUM]={0};
     if (depth == 0) {
-        return Access();
+        return Assess();
     }
     int num=LegalMoves(legalPoint);
     int cnt=0;
     while (cnt<num) {
         MakeNextMove(depth,cnt,legalPoint);
-//        PutBoard();
         val = -AlphaBeta(depth-1, -beta, -alpha);
+        scoreOfNode[cnt] = val;
         UnmakeMove(cnt,legalPoint);
         cnt++;
         if (val >= beta) {
@@ -24,6 +25,9 @@ int AlphaBeta(int depth, int alpha, int beta) {
         if (val > alpha) {
             alpha = val;
         }
+    }
+    if(depth == DEPTH){
+        nextStep=Finding (alpha,scoreOfNode,legalPoint);
     }
 
     return alpha;

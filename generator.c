@@ -1,15 +1,13 @@
 #include "generator.h"
 
 int LegalMoves(Point * point){
-    int i,j,k;
     int num=0;
-
-    for(k=0;k<NEIBOR_NUM;k++){
+    for(int k=0;k<NEIBOR_NUM;k++){
         point[k]=(Point){0,0};
     }
 
-    for(i=0;i<BOARD_SIZE;i++){
-        for(j=0;j<BOARD_SIZE;j++){
+    for(int i=0;i<BOARD_SIZE;i++){
+        for(int j=0;j<BOARD_SIZE;j++){
             if(board[i][j] == 0){
                 if(NeighborJudge(i,j) == 1){
                     point[num]=(Point){i,j};
@@ -20,7 +18,7 @@ int LegalMoves(Point * point){
     }
 
     int cnt=0;
-    for(i=0;i<NEIBOR_NUM;i++){
+    for(int i=0;i<NEIBOR_NUM;i++){
         if(point[i].x !=0||point[i].y !=0){
             cnt++;
         }
@@ -59,12 +57,12 @@ int NeighborJudge(int i,int j){
 }
 
 void Order(Point *point1){
-    int i,j,scoreTemp;
+    int scoreTemp;
     Point temp;
     int scoreOfPoint[NEIBOR_NUM]={0,};
-    for(i=0;i<NEIBOR_NUM;i++){
+    for(int i=0;i<NEIBOR_NUM;i++){
         scoreOfPoint[i]=EmptyPointEvaluate(point1[i]);
-        for(j=0;j<i;j++){
+        for(int j=0;j<i;j++){
             if(scoreOfPoint[i]>scoreOfPoint[j]){
                 scoreTemp=scoreOfPoint[i];
                 scoreOfPoint[i]=scoreOfPoint[j];
@@ -88,23 +86,22 @@ int Best(int *grades){
     return best;
 }
 
-Point Finding(int target){
-    int i;
-    int grades[NEIBOR_NUM]={0,};
+Point Finding(int target,const int *scorelist,const Point *point){
+   int store[NEIBOR_NUM]={0};
+   int j=0;
 
-    for(i=0;i<NEIBOR_NUM;i++){
-        if(vaildPoint[i].x!=0  || vaildPoint[i].y!= 0 ){
-            RecordChess(vaildPoint[i].x,vaildPoint[i].y);
-            grades[i]=Access();
-            if(grades[i] == target){
-                return vaildPoint[i];
-            }
-            RemoveChess(vaildPoint[i].x,vaildPoint[i].y);
-        }
-    }
-    //best=Best(grades);
 
-//	return vaildPoint[best];
+   for(int i=0;i<NEIBOR_NUM;i++){
+       if(scorelist[i] == target){
+           store[j]=i;
+           j++;
+       }
+   }
+
+   srand((unsigned)time(0));
+   int a=rand()%j;
+   return point[ store[a] ];
+
 }
 
 

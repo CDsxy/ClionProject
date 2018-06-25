@@ -3,4 +3,4 @@ project(ClionProject C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(ClionProject main.c access.c access.h board.h board.c generator.h generator.c alphabeta.c alphabeta.h)
+add_executable(ClionProject main.c assess.c assess.h board.h board.c generator.h generator.c alphabeta.c alphabeta.h)

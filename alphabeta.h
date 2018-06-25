@@ -5,7 +5,7 @@
 #ifndef CLIONPROJECT_ALPHABETA_H
 #define CLIONPROJECT_ALPHABETA_H
 
-#include "access.h"
+#include "assess.h"
 #include "generator.h"
 
 
